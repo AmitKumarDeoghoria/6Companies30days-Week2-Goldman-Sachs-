@@ -1,0 +1,55 @@
+class Solution {
+    public static double len (int[]a,int[]b)
+    {
+        double x1=(double)a[0];
+        double y1=(double)a[1];
+        double x2=(double)b[0];
+        double y2=(double)b[1];
+        double l=Math.sqrt(((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1)));
+        return l;
+    }
+    public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
+      HashMap<Double,Integer>map=new HashMap<>();
+        int[][]arr=new int[4][2];
+        arr[0]=p1;
+        arr[1]=p2;
+        arr[2]=p3;
+        arr[3]=p4;
+         
+       double dist1=len(arr[0],arr[1]);
+        double dist2=len(arr[1],arr[2]);
+        double dist3=len(arr[2],arr[3]);
+        double dist4=len(arr[3],arr[1]);
+        double dist5=len(arr[0],arr[3]);
+        double dist6=len(arr[0],arr[2]);
+        boolean flag1=false;
+        boolean flag2=false;
+        map.put(dist1,map.getOrDefault(dist1,0)+1);
+         map.put(dist2,map.getOrDefault(dist2,0)+1);
+          map.put(dist3,map.getOrDefault(dist3,0)+1);
+           map.put(dist4,map.getOrDefault(dist4,0)+1);
+            map.put(dist5,map.getOrDefault(dist5,0)+1);
+             map.put(dist6,map.getOrDefault(dist6,0)+1);
+             double side=0;
+             double diag=0;
+             for(Map.Entry<Double,Integer>e:map.entrySet())
+             {
+                 if(e.getValue()==4)
+                 {
+                     flag1=true;
+                     side=e.getKey();
+
+
+                 }
+                 else if(e.getValue()==2)
+                 {
+                     flag2=true;
+                     diag=e.getKey();
+                 }
+             }
+        if(flag1 && flag2 &&(diag>side))
+        return true;
+       return false;
+        
+    }
+}
