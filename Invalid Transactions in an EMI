@@ -1,0 +1,60 @@
+class Solution {
+    class Transactions
+    {
+
+     String name;
+     int time;
+     int amount;
+     String place;
+      public  Transactions(String line)
+      {
+          String[]str=line.split("[,]");
+          name=str[0];
+          time=Integer.parseInt(str[1]);
+          amount=Integer.parseInt(str[2]);
+          place=str[3];
+      }
+
+    }
+     public boolean isvalid(Transactions t,List<Transactions>list)
+     {
+
+             if(t.amount>1000)
+             {
+                 return false;
+             }
+
+             for(Transactions ta:list)
+             {
+                 if(Math.abs(ta.time-t.time)<=60 && !ta.place.equals(t.place))
+                 {
+                     return false;
+                 }
+             }
+             return true;
+
+     }
+
+
+    
+    public List<String> invalidTransactions(String[] transactions) {
+        List<String>ans=new ArrayList<>();
+        Map<String,List<Transactions>>map=new HashMap<>();
+        for(String trans:transactions)
+        {
+            Transactions t=new Transactions(trans);
+            map.putIfAbsent(t.name,new ArrayList<>());
+            map.get(t.name).add(t);
+        }
+
+        for(String trans:transactions)
+        {
+           Transactions t=new Transactions(trans);
+           if(!isvalid(t,map.getOrDefault(t.name,new ArrayList<>())))
+           {
+               ans.add(trans);
+           }
+        }
+        return ans;
+    }
+}
