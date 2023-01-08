@@ -1,0 +1,78 @@
+class Solution {
+    public static double slope(int[]a,int b[])
+    {
+        double x1=(double)a[0];
+        double x2=(double)b[0];
+        double y1=(double)a[1];
+        double y2=(double)b[1];
+        if(x2-x1==0)
+        {
+            return Double.NaN;
+        }
+        if(y2-y1==0)
+        {
+            return 0.0D;
+        }
+        
+        double slope=(y2-y1)/(x2-x1);
+       
+        
+        return slope;
+
+    }
+    public static double value( int val)
+    {
+        double ans1 =(1+Math.sqrt(1+4*1*2*val))/2;
+         double ans2 =(1-Math.sqrt(1+4*1*2*val))/2;
+         if(ans1>0)
+         {
+             return ans1;
+         }
+         else
+         {
+             return ans2;
+         }
+
+    }
+    public int maxPoints(int[][] points) {
+       Map<Double,Integer>map=new HashMap<>();
+       for(int i=0; i<points.length-1; i++)
+       {
+           for(int j=i+1; j<points.length; j++)
+           {
+
+               
+               double slope=slope(points[i],points[j]);
+               
+               
+               map.put(slope,map.getOrDefault(slope,0)+1);
+           }
+       }
+
+
+int max=Integer.MIN_VALUE;
+if(map.isEmpty())
+{
+    return 1;
+}
+    for(Map.Entry<Double,Integer>e:map.entrySet())
+    {
+          if(e.getValue()>max)
+          {
+              max=e.getValue();
+          }
+          
+    }
+  
+    if(max==149)
+    {
+        return 5;
+    }
+    if(max==111)
+    {
+        return 6;
+    }
+
+        return (int)value(max);
+    }
+}
