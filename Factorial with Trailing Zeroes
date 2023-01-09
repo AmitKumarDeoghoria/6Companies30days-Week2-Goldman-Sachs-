@@ -1,0 +1,40 @@
+class Solution {
+    public static int val1(int num)
+    {
+        int count=0;
+        while(num%5==0&&num>0)
+        {
+            num=num/5;
+            count++;
+        }
+        return count;
+    }
+    public static int val2(int num)
+    {
+        int count=0;
+        while(num%2==0&&num>0)
+        {
+            num=num/2;
+            count++;
+        }
+        return count;
+    }
+    public int trailingZeroes(int n) {
+        int fi=0;
+        int tw=0;
+        while(n>0)
+        {
+            fi= fi+val1(n);
+            tw=tw+val2(n);
+            n=n-1;
+            
+        
+        
+        
+        }
+        int min=Integer.min(fi,tw);
+        return min;
+        
+       
+    }
+}
