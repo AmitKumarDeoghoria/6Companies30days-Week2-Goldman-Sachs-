@@ -1,0 +1,35 @@
+class Solution {
+
+   
+    public static long len (int[]a,int[]b)
+    {
+        long x1=(long)a[0];
+        long y1=(long)a[1];
+        long x2=(long)b[0];
+        long y2=(long)b[1];
+        long l=(long)((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+        return l;
+    }
+    public int numberOfBoomerangs(int[][] points) {
+       int ans=0;
+
+        for(int i=0; i<points.length; i++)
+        {
+            Map<Long,Integer>map=new HashMap<>();
+            for(int j=0; j<points.length; j++)
+            {
+                    long dist=len(points[i],points[j]);
+                     map.put(dist,map.getOrDefault(dist,0)+1);
+            }
+            
+            System.out.print(map);
+           for(Integer v:map.values())
+           {
+                ans=ans+v*(v-1);
+           }
+
+        }
+        
+       return ans;
+    }
+}
