@@ -1,0 +1,27 @@
+class Solution {
+    public int maximumGood(int[][] statements) {
+        int n = statements.length, ans = 0;
+        for (int state = (1<<n)-1; state > 0; --state)
+            ans = Math.max(ans, valid(statements, state));
+        
+        return ans;
+    }
+    
+    private int valid(int[][] s, int state) {
+        int n = s.length, ans = 0;
+        
+        for (int i = 0; i < n; ++i) {
+            int u = state>>i&1;
+            if (u == 0) continue;
+            ans++;
+            for (int j = 0; j < n; ++j) {
+            
+                if (s[i][j] == 2) continue;
+                int v = state>>j&1;
+                
+                if (s[i][j] != v) return -1;
+            }
+        }
+        return ans;
+    }
+}
